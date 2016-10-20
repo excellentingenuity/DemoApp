@@ -17,6 +17,7 @@ class CreateBoothsTable extends Migration
             $table->uuid('id');
             $table->string('number');
             $table->integer('cost');
+            $table->string('location_id');
             $table->softDeletes();
             $table->timestamps();
         });
