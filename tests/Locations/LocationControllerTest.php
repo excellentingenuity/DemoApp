@@ -36,4 +36,19 @@ class LocationControllerTest extends TestCase
             'map' => $location->map
         ]);
     }
+
+    public function testDelete()
+    {
+        $location = Location::first();
+        $this->get('api/location/delete/' . $location->id)->seeJsonEquals(['deleted' => true]);
+        $this->notSeeInDatabase('locations', [
+            'id' => $location->id,
+            'deleted_at' => null
+        ]);
+    }
+
+    public function testSaveNew()
+    {
+
+    }
 }

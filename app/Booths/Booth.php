@@ -9,6 +9,8 @@ class Booth extends EloquentUUID
 {
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = ['number', 'cost'];
 
     public function location()

@@ -9,6 +9,8 @@ class Address extends EloquentUUID
 {
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = ['street', 'city', 'state', 'postal_code', 'country', 'latitude', 'longitude'];
 
     public function location()

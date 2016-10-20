@@ -12,6 +12,8 @@ class Location extends EloquentUUID
 
     protected $fillable = ['name', 'map'];
 
+    protected $dates = ['deleted_at'];
+
     public function expos()
     {
         return $this->belongsToMany(App\Expos\Expo::class);

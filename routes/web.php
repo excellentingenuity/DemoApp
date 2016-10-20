@@ -17,7 +17,7 @@ Route::group(['prefix' => 'api'], function() {
         Route::get('/', 'LocationController@all');
         Route::get('/{id}', 'LocationController@view');
         Route::post('/save', 'LocationController@save');
-        Route::post('/delete/{id}', 'LocationController@delete');
+        Route::get('/delete/{id}', 'LocationController@delete');
         Route::get('/find/{term}', 'LocationController@find');
     });
 });
