@@ -12,10 +12,14 @@
 */
 
 
-Route::get('/', function () {
-    return view('productform');
+Route::group(['prefix' => 'api'], function() {
+    Route::group(['prefix' => 'location'], function() {
+        Route::get('/', 'LocationController@all');
+        Route::get('/{id}', 'LocationController@view');
+        Route::post('/save', 'LocationController@save');
+        Route::post('/delete/{id}', 'LocationController@delete');
+        Route::get('/find/{term}', 'LocationController@find');
+    });
 });
 
-Route::post('/save', "ProductController@save");
 
-Route::get('/products', 'ProductController@viewAll');
