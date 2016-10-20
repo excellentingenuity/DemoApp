@@ -20,12 +20,12 @@ class LocationController extends Controller
 
     public function view($id)
     {
-
+        return response(Location::findOrFail($id)->toJson());
     }
 
     public function all()
     {
-
+        return response(Location::all()->toJson());
     }
 
     public function find($term)

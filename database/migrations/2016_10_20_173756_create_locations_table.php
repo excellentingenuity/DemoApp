@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->uuid('id');
             $table->string('name');
             $table->string('map');
-            $table->string('address_id');
+            $table->string('address_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
