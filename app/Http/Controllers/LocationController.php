@@ -6,15 +6,49 @@ use Illuminate\Contracts\Queue\EntityNotFoundException;
 use Illuminate\Http\Request;
 use App\Locations\Location;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
+/**
+ * Class LocationController
+ * @package App\Http\Controllers
+ */
 class LocationController extends Controller
 {
-    public function save()
+
+    /**
+     * save
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param null                     $id
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function save(Request $request, $id = null)
     {
+        $location = null;
+        if($id != null && $id != '')
+        {
+            $location = Location::findOrFail($id);
+            $location->name = $request->input('name');
+            $location->map = $request->input('map');
+            $location->save();
+        } else {
+            $location = Location::create([
+                 'name' => $request->input('name'),
+                 'map' => $request->input('map')
+            ]);
+        }
+        return response($location->toJson());
 
     }
 
+    /**
+     * delete
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($id)
     {
         $location = Location::findOrFail($id);
@@ -28,18 +62,40 @@ class LocationController extends Controller
         return response()->json(['deleted' => true]);
     }
 
+    /**
+     * view
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function view($id)
     {
         return response(Location::findOrFail($id)->toJson());
     }
 
+    /**
+     * all
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function all()
     {
         return response(Location::all()->toJson());
     }
 
+    /**
+     * find
+     *
+     * @param $term
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function find($term)
     {
-
+        if(Uuid::isValid($term))
+        {
+            return response(Location::findOrFail($term)->toJson());
+        }
+        return response(Location::where('name', $term)->firstOrFail()->toJson());
     }
 }

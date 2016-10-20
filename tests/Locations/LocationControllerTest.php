@@ -4,20 +4,32 @@ use App\Locations\Location;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\App;
 
+
+/**
+ * Class LocationControllerTest
+ */
 class LocationControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $locations;
 
+    /**
+     * setUp
+     */
     public function setUp ()
     {
         parent::setUp();
         $this->locations = factory(Location::class, 50)->create();
     }
 
+    /**
+     * testAll
+     */
     public function testAll()
     {
         $this->get('api/location')->seeJsonStructure([
@@ -27,6 +39,9 @@ class LocationControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * testView
+     */
     public function testView()
     {
         $location = Location::first();
@@ -37,6 +52,9 @@ class LocationControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * testDelete
+     */
     public function testDelete()
     {
         $location = Location::first();
@@ -47,8 +65,61 @@ class LocationControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * testFindByName
+     */
+    public function testFindByName()
+    {
+        $location = Location::first();
+        $this->get('api/location/find/' . $location->name)->seeJson([
+          'id' => $location->id,
+          'name' => $location->name,
+          'map' => $location->map
+        ]);
+    }
+
+    /**
+     * testFindByID
+     */
+    public function testFindByID()
+    {
+        $location = Location::first();
+        $this->get('api/location/find/' . $location->id)->seeJson([
+            'id' => $location->id,
+            'name' => $location->name,
+            'map' => $location->map
+        ]);
+    }
+
+    /**
+     * testSaveNew
+     */
     public function testSaveNew()
     {
+        $this->json('POST', 'api/location/save/',
+            [
+                'name' => 'Test Location',
+                'map' => 'Test Location Map'
+            ])->seeJson([
+                'name' => 'Test Location',
+                'map' => 'Test Location Map'
+            ]);
+    }
 
+    /**
+     * testSaveExisting
+     */
+    public function testSaveExisting()
+    {
+        $location = Location::first();
+        $this->json('POST', 'api/location/save/' . $location->id,
+        [
+            'name' => 'Test Location',
+            'map' => 'Test Location Map'
+        ])->seeJson([
+            'id' => $location->id,
+            'name' => 'Test Location',
+            'map' => 'Test Location Map'
+        ]);
     }
 }
