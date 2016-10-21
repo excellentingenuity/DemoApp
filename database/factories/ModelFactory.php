@@ -50,10 +50,19 @@ $factory->define(App\Locations\Location::class, function(Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\Customers\Customer::class, function(Faker\Generator $faker){
+$factory->define(App\Customers\Customer::class, function(Faker\Generator $faker) {
    return [
        'name' => $faker->name,
        'phone_number' => $faker->phoneNumber,
        'email' => $faker->email
    ];
+});
+
+$factory->define(App\Expos\Expo::class, function(Faker\Generator $faker) {
+    return [
+        'name' => $faker->jobTitle,
+        'description' => $faker->paragraph,
+        'start_date' => $faker->dateTimeBetween('now', '1 year'),
+        'end_date' => $faker->dateTimeBetween('now', '1 year')
+    ];
 });

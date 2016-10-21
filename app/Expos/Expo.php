@@ -2,6 +2,7 @@
 
 namespace App\Expos;
 
+use Carbon\Carbon;
 use eig\EloquentUUID\EloquentUUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -26,5 +27,18 @@ class Expo extends EloquentUUID
     public function reservations()
     {
         return $this->hasMany('App\Reservations\Reservation');
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->where('start_date', '>=', Carbon::now())
+                ->where('start_date', '<=', Carbon::now()->addMonth())
+                ->orderBy('start_date', 'asc');
+    }
+
+    public function scopeScheduled($query)
+    {
+        return $query->where('end_date', '>=', Carbon::now())
+                ->orderBy('start_date', 'asc');
     }
 }

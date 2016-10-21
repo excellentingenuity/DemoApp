@@ -12,7 +12,13 @@
     "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.16.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.3.1",
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3"
+  },
+  "dependencies": {
+    "moment": "^2.15.1",
+    "vuejs-datepicker": "^0.4.14"
   }
 }

@@ -9,9 +9,12 @@
 
 @import "components/dashboard/footer.scss";
 @import "components/dashboard/widgets.scss";
+@import "components/dashboard/expocard.scss";
+@import "pages/dashboard/expos.scss";
 
 body {
-  padding-bottom: 70px;
+  //padding-bottom: 70px;
+  background-color: #f5f8fa;
 
   .metrics-widget {
     @extend .widget;
@@ -23,6 +26,7 @@ body {
 
   .upcoming-expos-widget {
     @extend .widget;
-
+    overflow: scroll;
+    max-height: 55em;
   }
 }

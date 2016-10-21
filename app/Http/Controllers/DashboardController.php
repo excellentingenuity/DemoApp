@@ -13,4 +13,9 @@ class DashboardController extends Controller
         return view('dashboard.home', Metrics::dashboard_get());
     }
 
+    public function expos()
+    {
+        return view('dashboard.expos');
+    }
+
 }

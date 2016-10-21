@@ -1,0 +1,11 @@
+section.expos-page {
+  .scheduled-expos-list-container {
+    border-right: solid .15em dimgrey;
+    .scheduled-expos-list {
+      max-height: 55em;
+      overflow: scroll;
+      padding:1em;
+
+    }
+  }
+}
