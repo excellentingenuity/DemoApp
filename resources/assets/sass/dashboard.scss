@@ -1,0 +1,28 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "components/dashboard/footer.scss";
+@import "components/dashboard/widgets.scss";
+
+body {
+  padding-bottom: 70px;
+
+  .metrics-widget {
+    @extend .widget;
+    font-size: 1.2em;
+    ul {
+      list-style: none;
+    }
+  }
+
+  .upcoming-expos-widget {
+    @extend .widget;
+
+  }
+}

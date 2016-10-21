@@ -23,3 +23,7 @@ Route::group(['prefix' => 'api'], function() {
 });
 
 
+Route::group(['prefix' => 'dashboard'], function() {
+    Route::get('/', 'DashboardController@home');
+});
+
