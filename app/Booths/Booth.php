@@ -17,4 +17,9 @@ class Booth extends EloquentUUID
     {
         return $this->belongsTo('App\Locations\Location');
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany('App\Reservations\Reservation');
+    }
 }

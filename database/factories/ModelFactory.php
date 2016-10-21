@@ -49,3 +49,11 @@ $factory->define(App\Locations\Location::class, function(Faker\Generator $faker)
         'map' => $faker->uuid,
     ];
 });
+
+$factory->define(App\Customers\Customer::class, function(Faker\Generator $faker){
+   return [
+       'name' => $faker->name,
+       'phone_number' => $faker->phoneNumber,
+       'email' => $faker->email
+   ];
+});
