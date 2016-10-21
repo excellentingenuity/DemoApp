@@ -22,6 +22,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Addresses\Address::class, function(Faker\Generator $faker) {
+    return [
+        'street' => $faker->streetAddress,
+        'city' => $faker->city,
+        'state' => $faker->locale,
+        'postal_code' => $faker->postcode,
+        'country' => $faker->country
+    ];
+});
+
 $factory->define(App\Locations\Location::class, function(Faker\Generator $faker) {
     return [
         'name' => $faker->company,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Queue\EntityNotFoundException;
 use Illuminate\Http\Request;
 use App\Locations\Location;
+use App\Addresses\Address;
 use App\Http\Requests;
 use Ramsey\Uuid\Uuid;
 
@@ -26,17 +27,42 @@ class LocationController extends Controller
     public function save(Request $request, $id = null)
     {
         $location = null;
+        $this->validate($request, [
+            'name' => 'required',
+            'map' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'state' => 'required|min:2',
+            'postal_code' => 'required|numeric|min:5',
+            'country' => 'required|min:2'
+        ]);
         if($id != null && $id != '')
         {
             $location = Location::findOrFail($id);
             $location->name = $request->input('name');
             $location->map = $request->input('map');
+            $address = $location->address;
+            $address->street = $request->input('street');
+            $address->city = $request->input('city');
+            $address->state = $request->input('state');
+            $address->postal_code = $request->input('postal_code');
+            $address->country = $request->input('country');
+            $address->save();
             $location->save();
         } else {
             $location = Location::create([
                  'name' => $request->input('name'),
-                 'map' => $request->input('map')
+                 'map' => $request->input('map'),
             ]);
+            $address = Address::create([
+                'street' => $request->input('street'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
+                'postal_code' => $request->input('postal_code'),
+                'country' => $request->input('country')
+            ]);
+            $location->address()->save($address);
+            $location->address;
         }
         return response($location->toJson());
 

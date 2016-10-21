@@ -24,7 +24,10 @@ class LocationControllerTest extends TestCase
     public function setUp ()
     {
         parent::setUp();
-        $this->locations = factory(Location::class, 50)->create();
+        $this->locations = factory(Location::class, 50)->create()
+            ->each(function ($location) {
+            $location->address()->save(factory(App\Addresses\Address::class)->create());
+        });;
     }
 
     /**
@@ -96,13 +99,24 @@ class LocationControllerTest extends TestCase
      */
     public function testSaveNew()
     {
+
         $this->json('POST', 'api/location/save/',
             [
                 'name' => 'Test Location',
-                'map' => 'Test Location Map'
+                'map' => 'Test Location Map',
+                'street' => '123 Sesame Street',
+                'city' => 'New York',
+                'state' => 'New York',
+                'postal_code' => '1234',
+                'country' => 'United States'
             ])->seeJson([
                 'name' => 'Test Location',
-                'map' => 'Test Location Map'
+                'map' => 'Test Location Map',
+                'street' => '123 Sesame Street',
+                'city' => 'New York',
+                'state' => 'New York',
+                'postal_code' => '1234',
+                'country' => 'United States'
             ]);
     }
 
@@ -115,11 +129,21 @@ class LocationControllerTest extends TestCase
         $this->json('POST', 'api/location/save/' . $location->id,
         [
             'name' => 'Test Location',
-            'map' => 'Test Location Map'
+            'map' => 'Test Location Map',
+            'street' => '123 Sesame Street',
+            'city' => 'New York',
+            'state' => 'New York',
+            'postal_code' => '1234',
+            'country' => 'United States'
         ])->seeJson([
             'id' => $location->id,
             'name' => 'Test Location',
-            'map' => 'Test Location Map'
+            'map' => 'Test Location Map',
+            'street' => '123 Sesame Street',
+            'city' => 'New York',
+            'state' => 'New York',
+            'postal_code' => '1234',
+            'country' => 'United States'
         ]);
     }
 }

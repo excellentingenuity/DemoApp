@@ -20,8 +20,10 @@ class CreateAddressesTable extends Migration
             $table->string('state');
             $table->string('postal_code');
             $table->string('country');
-            $table->string('longitude');
-            $table->string('latitude');
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('addressable_id')->nullable();
+            $table->string('addressable_type')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

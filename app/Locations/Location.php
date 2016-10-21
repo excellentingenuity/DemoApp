@@ -16,16 +16,16 @@ class Location extends EloquentUUID
 
     public function expos()
     {
-        return $this->belongsToMany(App\Expos\Expo::class);
+        return $this->belongsToMany('App\Expos\Expo');
     }
 
     public function address()
     {
-        return $this->hasOne(App\Addresses\Address::class, 'id', 'address_id');
+        return $this->morphOne('App\Addresses\Address', 'addressable');
     }
 
     public function booths()
     {
-        return $this->hasMany(App\Booths\Booth::class, 'location_id', 'id');
+        return $this->hasMany('App\Booths\Booth', 'location_id', 'id');
     }
 }

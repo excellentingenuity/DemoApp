@@ -80,4 +80,20 @@ class LocationTest extends TestCase
         $this->assertInstanceOf(Illuminate\Support\Collection::class, $locations);
         $this->assertEquals(2, $location->count());
     }
+
+    /**
+     * testAttachAddress
+     */
+    public function testAttachAddress()
+    {
+        $location = Location::create([
+             'name' => 'Test Location',
+             'map' => 'this will be the map'
+        ]);
+        $address = factory(App\Addresses\Address::class)->create();
+        //dd($address);
+        $address->save();
+        $location->address()->save($address);
+        $this->assertNotNull($location->address);
+    }
 }
