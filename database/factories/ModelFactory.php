@@ -32,6 +32,17 @@ $factory->define(App\Addresses\Address::class, function(Faker\Generator $faker) 
     ];
 });
 
+$factory->define(App\Booths\Booth::class, function (Faker\Generator $faker) {
+    return [
+      'number' => $faker->randomDigit(),
+      'cost' => $faker->numberBetween(),
+      'latitude' => $faker->latitude,
+      'longitude' => $faker->longitude,
+      'width' => $faker->numberBetween(8, 40),
+      'depth' => $faker->numberBetween(8, 40)
+    ];
+});
+
 $factory->define(App\Locations\Location::class, function(Faker\Generator $faker) {
     return [
         'name' => $faker->company,

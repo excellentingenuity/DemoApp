@@ -97,7 +97,7 @@ class LocationController extends Controller
      */
     public function view($id)
     {
-        return response(Location::findOrFail($id)->toJson());
+        return response(Location::with('address', 'booths')->findOrFail($id)->toJson());
     }
 
     /**
@@ -106,7 +106,7 @@ class LocationController extends Controller
      */
     public function all()
     {
-        return response(Location::all()->toJson());
+        return response(Location::with('address', 'booths')->get()->toJson());
     }
 
     /**

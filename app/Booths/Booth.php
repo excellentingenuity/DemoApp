@@ -11,10 +11,10 @@ class Booth extends EloquentUUID
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['number', 'cost'];
+    protected $fillable = ['number', 'cost', 'latitude', 'longitude', 'width', 'depth'];
 
     public function location()
     {
-        return $this->belongsTo(App\Locations\Location::class);
+        return $this->belongsTo('App\Locations\Location');
     }
 }
