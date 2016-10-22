@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "moment": "^2.15.1",
-    "vuejs-datepicker": "^0.4.14"
+    "vue-flatpickr": "^2.0.2"
   }
 }

@@ -8,6 +8,7 @@ require('./bootstrap');
 
 var VueResource = require('vue-resource');
 var moment = require('moment');
+var flatpickr = require('../../../node_modules/vue-flatpickr/vue-flatpickr-default.vue');
 
 Vue.use(VueResource);
 
@@ -19,7 +20,7 @@ Vue.use(VueResource);
  */
 
 //Vue.component('example', require('./components/Example.vue'));
-//Vue.component('datepicker', require('./components/datepicker.vue'));
+
 
 const dashboard = new Vue({
     el: '#dashboard',
@@ -28,13 +29,17 @@ const dashboard = new Vue({
     },
     data: {
         upcomingExpos: {},
-        scheduledExpos: {},
+        scheduledExpos: [],
         expo: {
             id: 'id',
             name: 'Name',
             description: 'Description',
-            startDate: new Date(2016, 10, 1)
-        }
+            start_date: new Date(2016, 10, 1),
+            end_date: new Date(2016, 10, 1)
+
+        },
+        end_date: 'Select a date',
+        start_date: 'Select a date'
     },
     methods: {
         getUpcomingExpos: function() {
@@ -58,30 +63,44 @@ const dashboard = new Vue({
         },
 
         loadExpoToForm: function (id, name, description) {
-            this.expo.id = id;
-            this.expo.name = name;
-            this.expo.description = description;
-          //console.log(name);
-            //console.log(this.scheduledExpos.);
+            //console.log(this.getById(id, this.scheduledExpos));
+            this.expo = this.getById(id, this.scheduledExpos);
+            this.updateStart(this.expo.start_date);
+            this.updateEnd(this.expo.end_date);
         },
 
         moment: function () {
             return moment();
+        },
+
+        getById: function (id, myArray) {
+            return myArray.filter(function(obj) {
+                if(obj.id == id) {
+                    return obj
+                }
+            })[0]
+        },
+
+        updateStart: function(val) {
+            this.start_date = val;
+        },
+        updateEnd: function(val) {
+            this.end_date = val;
         }
     },
     filters: {
         transformDate: function(date) {
             return moment(date).format('ll');
         }
+
     },
     components: {
-
+        flatpickr: flatpickr
     }
-
 });
-
 dashboard.getUpcomingExpos();
 dashboard.getScheduledExpos();
+
 
 
 

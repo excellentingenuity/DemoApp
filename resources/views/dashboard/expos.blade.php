@@ -29,11 +29,11 @@
                 </div>
                 <div class="form-group">
                     <label for="expoStartDate">Start Date</label>
-                    <input type="datetime" class="form-control" placeholder="Select Date" />
+                    <flatpickr name="expoStartDate" class="form-control" data-default-date="" data-enable-time=true :message='start_date' @update='updateStart' ></flatpickr>
                 </div>
                 <div class="form-group">
                     <label for="expoEndDate">End Date</label>
-                    <input type="datetime" class="form-control" placeholder="Select Date" />
+                    <flatpickr name="expoEndDate" class="form-control" data-default-date="" data-enable-time=true :message='end_date' @update='updateEnd' ></flatpickr>
                 </div>
                 <button type="submit" class="btn btn-default btn-primary pull-right" v-on:click.prevent="saveExpo">Save</button>
             </form>
